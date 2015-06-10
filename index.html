@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<h1>Estimations à gogo</h1>
+
+		<table id="tasks">
+			<thead>
+				<tr>
+					<th>Libellé</th>
+					<th>Min</th>
+					<th>Max</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="text" placeholder="Installer npm"></td>
+					<td><input type="text" placeholder="1" size="3"></td>
+					<td><input type="text" placeholder="2" size="3"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			Gestion de projet : <span id="gestion-projet"></span>h
+		</p>
+
+		<script src="jspm_packages/es6-module-loader.js"></script>
+		<script src="jspm_packages/system.js"></script>
+		<script src="config.js"></script>
+		<script>
+			System.import('src/app');
+		</script>
+	</body>
+</html>

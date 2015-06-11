@@ -1,6 +1,6 @@
-import Estimation from './Estimation';
+import EstimationSpreadsheet from './EstimationSpreadsheet';
 
-Estimation.init(
+EstimationSpreadsheet.init(
 	document.getElementById('tasks'),
 	document.getElementById('gestion-projet')
 );

@@ -26,12 +26,25 @@ function pluck(key) {
 		return arr.map(elt => elt[key])
 	}
 }
+let getMin = pluck('min');
+let getMax = pluck('max');
 
 function sum(estimations) {
+	console.debug(estimations);
 	return estimations.reduce((a, b) => a + b.value, 0);
 }
 
-function init(tasksTable, gestionProjetElement) {
+function calculeTotaux(tasks, taux) {
+	console.debug(tasks, getMin(tasks));
+	const min = getMin(tasks).map(sum);
+	const max = getMax(tasks).map(sum);
+	return {
+		min: min*taux,
+		max: max*taux
+	}
+}
+
+function init(tasksTable, gestionProjetElement, totalElement) {
 	const estimatedTasks = Kefir.fromEvents(tasksTable, 'change')
 		.map(e => tasksTable.querySelectorAll('tbody tr'))
 		.map(rows => [...rows].map(htmlToTask).filter(task => task.isEstimated()))
@@ -49,6 +62,12 @@ function init(tasksTable, gestionProjetElement) {
 			(min, max) => new EstimatedTask('Gestion de projet', min * 0.2, max * 0.2)
 		)
 		.filter(task => task.isEstimated());
+
+	const tauxHoraire = Kefir.constant(100);
+	const total = Kefir.combine(
+		[estimatedTasks, gestionDeProjet, tauxHoraire],
+		(tasks, project, taux) => calculeTotaux(tasks.push(project), taux)
+	).log('total');
 
 	newRowNeeded.onValue(appendTaskRowTo(tasksTable.querySelector('tbody')));
 	gestionDeProjet.onValue(task => {

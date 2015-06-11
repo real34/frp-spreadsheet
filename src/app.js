@@ -2,5 +2,6 @@ import EstimationSpreadsheet from './EstimationSpreadsheet';
 
 EstimationSpreadsheet.init(
 	document.getElementById('tasks'),
-	document.getElementById('gestion-projet')
+	document.getElementById('gestion-projet'),
+	document.getElementById('total')
 );
